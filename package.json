@@ -1,7 +1,7 @@
 {
-  "name": "yosef-portfolio-backend",
+  "name": "ymshrf-backend",
   "version": "1.0.0",
-  "description": "Backend for Yosef's Portfolio with MongoDB",
+  "description": "Backend for Yosef Portfolio with MongoDB",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
