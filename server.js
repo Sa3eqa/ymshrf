@@ -12,8 +12,8 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// MongoDB Connection
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://ymshrf73_db_user:QLCG2yfJrQdmYAVf@hjey.bv0mypb.mongodb.net/portfolio?retryWrites=true&w=majority&appName=HJEY';
+// MongoDB Connection - الرابط الجديد
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://ymsh5:ymshrf12@cluster0.vrpkh.mongodb.net/portfolio?retryWrites=true&w=majority';
 
 mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
