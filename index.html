@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>يوسف بن احمد آل مشرف - مطور سعودي</title>
+    <link rel="icon" href="https://i.ibb.co/RkbvkX46/884c124575f9.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a1a7e;
+            --secondary-color: #2d1150;
+            --accent-color: #6b3fa0;
+            --bg-dark: #0d0618;
+            --bg-card: rgba(29, 14, 50, 0.95);
+            --text-light: #e8dff5;
+            --text-muted: #b8a9d1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at top, rgba(74, 26, 126, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom right, rgba(45, 17, 80, 0.15) 0%, transparent 50%),
+                        var(--bg-dark);
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+            opacity: 0.15;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.2; }
+        }
+
+        #sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 320px;
+            height: 100vh;
+            background: var(--bg-card);
+            backdrop-filter: blur(25px);
+            border-left: 2px solid var(--primary-color);
+            padding: 2rem 0;
+            z-index: 1000;
+            transition: transform 0.4s ease;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            padding: 0 2rem 2rem;
+            border-bottom: 2px solid var(--primary-color);
+            position: relative;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            margin-bottom: 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px var(--primary-color);
+        }
+
+        .sidebar-header h3 {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 2.5rem 1rem;
+        }
+
+        .nav-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            transform: translateX(-5px);
+        }
+
+        .nav-link.active {
+            background: var(--primary-color);
+        }
+
+        .nav-link i {
+            margin-left: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .main-content {
+            margin-right: 320px;
+            min-height: 100vh;
+            padding: 2.5rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 3rem;
+            background: var(--bg-card);
+            border-radius: 25px;
+            margin-bottom: 3rem;
+            border: 1px solid var(--primary-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            margin: 0 auto 2rem;
+            transition: all 0.5s ease;
+            display: block;
+        }
+
+        .hero-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 40px var(--primary-color);
+        }
+
+        .hero-title {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-flag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 155, 58, 0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 155, 58, 0.4);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--primary-color);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px var(--primary-color);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+
+        .card p {
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px var(--primary-color);
+        }
+
+        .btn i {
+            margin-left: 0.8rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .skill-item {
+            background: var(--bg-card);
+            padding: 2.5rem 1.5rem;
+            border-radius: 18px;
+            text-align: center;
+            border: 1px solid var(--primary-color);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px var(--primary-color);
+        }
+
+        .skill-item h3 {
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 4rem;
+            border-radius: 25px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--primary-color);
+            border-radius: 15px;
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 25px var(--primary-color);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 4rem;
+            color: var(--accent-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1001;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border: none;
+            color: white;
+            padding: 1.2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1.3rem;
+        }
+
+        .admin-login-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+        }
+
+        .admin-login-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .admin-mode-indicator {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 0.8rem 1.5rem;
+            border-radius: 15px;
+            z-index: 999;
+            font-weight: 700;
+            box-shadow: 0 5px 15px var(--primary-color);
+        }
+
+        .admin-mode-indicator.active {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .edit-btn {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border: none;
+            color: white;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        body.admin-mode .edit-btn {
+            display: block;
+        }
+
+        .edit-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .admin-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-modal.active {
+            display: flex;
+        }
+
+        .admin-modal-content {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 25px;
+            border: 2px solid var(--primary-color);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--text-light);
+            transform: rotate(90deg);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #16a34a, #15803d);
+        }
+
+        .btn-small {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .editable-section {
+            position: relative;
+        }
+
+        .color-picker-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .color-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .color-input-wrapper input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .secret-code-input {
+            position: fixed;
+            bottom: 80px;
+            left: 20px;
+            width: 200px;
+            padding: 0.8rem;
+            background: var(--bg-card);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-family: inherit;
+            display: none;
+            z-index: 998;
+        }
+
+        .secret-code-input.active {
+            display: block;
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .loading-spinner {
+            border: 5px solid var(--text-muted);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-menu-btn { display: block; }
+            #sidebar { transform: translateX(100%); }
+            #sidebar.open { transform: translateX(0); }
+            .main-content { margin-right: 0; }
+            .card-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="animated-bg">
+        <div class="particle" style="width: 150px; height: 150px; top: 10%; left: 5%;"></div>
+        <div class="particle" style="width: 100px; height: 100px; top: 60%; left: 80%;"></div>
+        <div class="particle" style="width: 120px; height: 120px; top: 80%; left: 20%;"></div>
+    </div>
+
+    <div id="adminModeIndicator" class="admin-mode-indicator">
+        <i class="fas fa-user-shield"></i>
+        <span>وضع المسؤول</span>
+        <button class="btn btn-danger btn-small" onclick="logout()" style="margin-right: 1rem;">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <input type="text" id="secretCodeInput" class="secret-code-input" placeholder="أدخل الكود السري..." onkeypress="checkSecretCode(event)">
+
+    <button class="admin-login-btn" onclick="toggleSecretInput()">
+        <i class="fas fa-user"></i>
+    </button>
+
+    <div id="editModal" class="admin-modal">
+        <div class="admin-modal-content">
+            <button class="close-modal" onclick="closeEditModal()">×</button>
+            <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 2rem;" id="editModalTitle">تعديل</h2>
+            <div id="editModalContent"></div>
+        </div>
+    </div>
+
+    <button class="mobile-menu-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <aside id="sidebar">
+        <div class="sidebar-header editable-section">
+            <button class="edit-btn" onclick="editSidebarInfo()"><i class="fas fa-edit"></i> تعديل</button>
+            <img src="https://i.ibb.co/RkbvkX46/884c124575f9.jpg" class="logo" id="sidebarLogo">
+            <h3 id="sidebarName">يوسف بن احمد آل مشرف</h3>
+            <p class="sidebar-subtitle" id="sidebarTitle">مطور سعودي</p>
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a class="nav-link active" onclick="showSection('home')">
+                        <i class="fas fa-home"></i>
+                        <span>الرئيسية</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('about')">
+                        <i class="fas fa-user"></i>
+                        <span>عني</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('skills')">
+                        <i class="fas fa-code"></i>
+                        <span>مهاراتي</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('payment')">
+                        <i class="fas fa-credit-card"></i>
+                        <span>وسائل الدفع</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSection('contact')">
+                        <i class="fas fa-code-branch"></i>
+                        <span>اطلب برمجة</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <section id="home" class="section active">
+            <div class="hero editable-section">
+                <button class="edit-btn" onclick="editHeroSection()"><i class="fas fa-edit"></i> تعديل</button>
+                <img src="https://i.ibb.co/RkbvkX46/884c124575f9.jpg" class="hero-avatar" id="heroAvatar">
+                <h1 class="hero-title" id="heroTitle">يوسف بن احمد آل مشرف</h1>
+                <p class="hero-subtitle" id="heroSubtitle">الصفحة الرئيسية</p>
+                <div class="hero-flag">
+                    <span style="font-size: 2rem;">🇸🇦</span>
+                    <span id="heroInfo">سعودي - 15y</span>
+                </div>
+                <a class="btn" onclick="showSection('contact')">
+                    <span>للطلب</span>
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+
+            <div class="editable-section" style="position: relative;">
+                <button class="edit-btn" onclick="addNewService()"><i class="fas fa-plus"></i> إضافة خدمة</button>
+                <h2 class="section-title">شغلي</h2>
+                <div class="card-grid" id="servicesGrid"></div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <h2 class="section-title">عني</h2>
+            <div class="card editable-section">
+                <button class="edit-btn" onclick="editAboutText()"><i class="fas fa-edit"></i> تعديل النص</button>
+                <p id="aboutText" style="font-size: 1.2rem; line-height: 2;"></p>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="editable-section" style="position: relative;">
+                <button class="edit-btn" onclick="addNewSkill()"><i class="fas fa-plus"></i> إضافة مهارة</button>
+                <h2 class="section-title">مهاراتي</h2>
+                <div class="skills-grid" id="skillsGrid"></div>
+            </div>
+        </section>
+
+        <section id="payment" class="section">
+            <h2 class="section-title">وسائل الدفع</h2>
+            <div style="max-width: 900px; margin: 0 auto; text-align: center;" class="editable-section">
+                <button class="edit-btn" onclick="editPaymentImage()"><i class="fas fa-edit"></i> تغيير الصورة</button>
+                <img id="paymentImage" src="" alt="وسائل الدفع" style="width: 100%; border-radius: 20px; border: 2px solid var(--primary-color);">
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <div class="editable-section" style="position: relative;">
+                <button class="edit-btn" onclick="editWebhook()"><i class="fas fa-cog"></i> إعدادات</button>
+                <h2 class="section-title">اطلب برمجة</h2>
+                <div class="form-container">
+                    <form onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label class="form-label">اسمك</label>
+                            <input type="text" id="userName" class="form-input" placeholder="اكتب اسمك" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">الايدي الخاص بك بالديسكورد</label>
+                            <input type="text" id="userDiscord" class="form-input" placeholder="مثال: 123456789" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">طلبك بالتفصيل</label>
+                            <textarea id="userRequest" class="form-textarea" rows="6" placeholder="اكتب طلبك بالتفصيل..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn">
+                            <span>ارسال</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // ⚙️ رابط الـ Backend على Render
+        const API_URL = 'https://ymshrf.onrender.com/api';
+
+        let adminData = {};
+        let siteData = {};
+        let isLoggedIn = false;
+
+        async function loadDataFromServer() {
+            try {
+                const response = await fetch(`${API_URL}/data`);
+                const data = await response.json();
+                
+                siteData = {
+                    profileImage: data.profileImage,
+                    paymentImage: data.paymentImage,
+                    fullName: data.fullName,
+                    jobTitle: data.jobTitle,
+                    heroSubtitle: data.heroSubtitle,
+                    countryAge: data.countryAge,
+                    aboutText: data.aboutText,
+                    services: data.services || [],
+                    skills: data.skills || [],
+                    colors: data.colors || {}
+                };
+
+                adminData = data.adminData || {};
+                applyAllData();
+                document.getElementById('loading').style.display = 'none';
+            } catch (error) {
+                console.error('❌ خطأ في تحميل البيانات:', error);
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        async function saveDataToServer() {
+            if (!isLoggedIn) return;
+
+            try {
+                const services = [];
+                document.querySelectorAll('#servicesGrid .card').forEach(card => {
+                    const iconClass = card.querySelector('.card-icon').className;
+                    const iconMatch = iconClass.match(/fa-[\w-]+/);
+                    services.push({
+                        icon: iconMatch ? iconMatch[0] : 'fa-laptop-code',
+                        title: card.querySelector('.card-title').textContent,
+                        desc: card.querySelector('p').textContent
+                    });
+                });
+
+                const skills = [];
+                document.querySelectorAll('#skillsGrid .skill-item').forEach(skill => {
+                    const iconElement = skill.querySelector('i');
+                    skills.push({
+                        icon: iconElement ? iconElement.className : 'fab fa-html5',
+                        name: skill.querySelector('h3').textContent
+                    });
+                });
+
+                siteData.services = services;
+                siteData.skills = skills;
+
+                const dataToSave = { ...siteData, adminData: adminData };
+
+                await fetch(`${API_URL}/data`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataToSave)
+                });
+
+                return true;
+            } catch (error) {
+                console.error('❌ خطأ في الحفظ:', error);
+                return false;
+            }
+        }
+
+        function applyAllData() {
+            if (siteData.profileImage) {
+                document.getElementById('sidebarLogo').src = siteData.profileImage;
+                document.getElementById('heroAvatar').src = siteData.profileImage;
+            }
+            if (siteData.fullName) {
+                document.getElementById('sidebarName').textContent = siteData.fullName;
+                document.getElementById('heroTitle').textContent = siteData.fullName;
+            }
+            if (siteData.jobTitle) {
+                document.getElementById('sidebarTitle').textContent = siteData.jobTitle;
+            }
+            if (siteData.heroSubtitle) {
+                document.getElementById('heroSubtitle').textContent = siteData.heroSubtitle;
+            }
+            if (siteData.countryAge) {
+                document.getElementById('heroInfo').textContent = siteData.countryAge;
+            }
+            if (siteData.aboutText) {
+                document.getElementById('aboutText').innerHTML = siteData.aboutText;
+            }
+            if (siteData.paymentImage) {
+                document.getElementById('paymentImage').src = siteData.paymentImage;
+            }
+
+            if (siteData.colors) {
+                applyColors(siteData.colors);
+            }
+
+            if (siteData.services && siteData.services.length > 0) {
+                const servicesGrid = document.getElementById('servicesGrid');
+                servicesGrid.innerHTML = '';
+                siteData.services.forEach((service, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'card editable-section';
+                    card.dataset.serviceId = index;
+                    card.innerHTML = `
+                        <button class="edit-btn" onclick="editService(this)"><i class="fas fa-edit"></i></button>
+                        <i class="fas ${service.icon} card-icon"></i>
+                        <h3 class="card-title">${service.title}</h3>
+                        <p>${service.desc}</p>
+                    `;
+                    servicesGrid.appendChild(card);
+                });
+            }
+
+            if (siteData.skills && siteData.skills.length > 0) {
+                const skillsGrid = document.getElementById('skillsGrid');
+                skillsGrid.innerHTML = '';
+                siteData.skills.forEach((skill, index) => {
+                    const skillItem = document.createElement('div');
+                    skillItem.className = 'skill-item editable-section';
+                    skillItem.dataset.skillId = index;
+                    skillItem.innerHTML = `
+                        <button class="edit-btn" onclick="editSkill(this)"><i class="fas fa-edit"></i></button>
+                        <i class="${skill.icon}" style="font-size: 3.5rem; color: var(--accent-color);"></i>
+                        <h3>${skill.name}</h3>
+                    `;
+                    skillsGrid.appendChild(skillItem);
+                });
+            }
+        }
+
+        function applyColors(colors) {
+            const root = document.documentElement;
+            root.style.setProperty('--primary-color', colors.primary);
+            root.style.setProperty('--secondary-color', colors.secondary);
+            root.style.setProperty('--accent-color', colors.accent);
+            root.style.setProperty('--bg-dark', colors.bgDark);
+            root.style.setProperty('--bg-card', colors.bgCard);
+            root.style.setProperty('--text-light', colors.textLight);
+            root.style.setProperty('--text-muted', colors.textMuted);
+        }
+
+        window.addEventListener('load', loadDataFromServer);
+
+        function toggleSecretInput() {
+            const input = document.getElementById('secretCodeInput');
+            input.classList.toggle('active');
+            if (input.classList.contains('active')) {
+                input.focus();
+            }
+        }
+
+        async function checkSecretCode(event) {
+            if (event.key === 'Enter') {
+                const code = document.getElementById('secretCodeInput').value.trim();
+                
+                try {
+                    const response = await fetch(`${API_URL}/verify-admin`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ code })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        isLoggedIn = true;
+                        adminData = result.adminData;
+                        document.body.classList.add('admin-mode');
+                        document.getElementById('adminModeIndicator').classList.add('active');
+                        document.getElementById('secretCodeInput').classList.remove('active');
+                        document.getElementById('secretCodeInput').value = '';
+                        alert('✅ مرحباً يا مشرف! تقدر تعدل كل شي في الموقع');
+                    } else {
+                        alert('❌ الكود غلط!');
+                        document.getElementById('secretCodeInput').value = '';
+                    }
+                } catch (error) {
+                    alert('❌ خطأ في التحقق من الكود!');
+                }
+            }
+        }
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            sections.forEach(section => section.classList.remove('active'));
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.closest('.nav-link').classList.add('active');
+            
+            if (window.innerWidth <= 1024) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            document.body.classList.remove('admin-mode');
+            document.getElementById('adminModeIndicator').classList.remove('active');
+            alert('✅ تم تسجيل الخروج');
+        }
+
+        function editSidebarInfo() {
+            document.getElementById('editModalTitle').textContent = 'تعديل معلومات الجانب';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">رابط صورة البروفايل</label>
+                    <input type="url" id="editProfileImage" class="form-input" value="${siteData.profileImage}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الاسم الكامل</label>
+                    <input type="text" id="editFullName" class="form-input" value="${siteData.fullName}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">المسمى الوظيفي</label>
+                    <input type="text" id="editJobTitle" class="form-input" value="${siteData.jobTitle}">
+                </div>
+                <button class="btn btn-success" onclick="saveSidebarInfo()" style="width: 100%;">
+                    <span>حفظ التعديلات</span>
+                    <i class="fas fa-save"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function saveSidebarInfo() {
+            const profileImage = document.getElementById('editProfileImage').value;
+            const fullName = document.getElementById('editFullName').value;
+            const jobTitle = document.getElementById('editJobTitle').value;
+
+            if (profileImage) {
+                siteData.profileImage = profileImage;
+                document.getElementById('sidebarLogo').src = profileImage;
+                document.getElementById('heroAvatar').src = profileImage;
+            }
+            if (fullName) {
+                siteData.fullName = fullName;
+                document.getElementById('sidebarName').textContent = fullName;
+                document.getElementById('heroTitle').textContent = fullName;
+            }
+            if (jobTitle) {
+                siteData.jobTitle = jobTitle;
+                document.getElementById('sidebarTitle').textContent = jobTitle;
+            }
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم حفظ التعديلات للجميع!');
+        }
+
+        function editHeroSection() {
+            document.getElementById('editModalTitle').textContent = 'تعديل القسم الرئيسي';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">العنوان الفرعي</label>
+                    <input type="text" id="editHeroSubtitle" class="form-input" value="${siteData.heroSubtitle}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">المعلومات (العمر والجنسية)</label>
+                    <input type="text" id="editCountryAge" class="form-input" value="${siteData.countryAge}">
+                </div>
+                <button class="btn btn-success" onclick="saveHeroSection()" style="width: 100%;">
+                    <span>حفظ التعديلات</span>
+                    <i class="fas fa-save"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function saveHeroSection() {
+            const subtitle = document.getElementById('editHeroSubtitle').value;
+            const info = document.getElementById('editCountryAge').value;
+
+            if (subtitle) {
+                siteData.heroSubtitle = subtitle;
+                document.getElementById('heroSubtitle').textContent = subtitle;
+            }
+            if (info) {
+                siteData.countryAge = info;
+                document.getElementById('heroInfo').textContent = info;
+            }
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم حفظ التعديلات للجميع!');
+        }
+
+        function editService(button) {
+            const card = button.closest('.card');
+            const iconClass = card.querySelector('.card-icon').className;
+            const iconMatch = iconClass.match(/fa-[\w-]+/);
+            const icon = iconMatch ? iconMatch[0] : 'fa-laptop-code';
+            const title = card.querySelector('.card-title').textContent;
+            const desc = card.querySelector('p').textContent;
+
+            document.getElementById('editModalTitle').textContent = 'تعديل الخدمة';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">أيقونة الخدمة (Font Awesome)</label>
+                    <input type="text" id="editServiceIcon" class="form-input" value="${icon}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">عنوان الخدمة</label>
+                    <input type="text" id="editServiceTitle" class="form-input" value="${title}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">وصف الخدمة</label>
+                    <textarea id="editServiceDesc" class="form-textarea" rows="4">${desc}</textarea>
+                </div>
+                <button class="btn btn-success" onclick="saveServiceEdit()" style="width: 100%; margin-bottom: 1rem;">
+                    <span>حفظ التعديلات</span>
+                    <i class="fas fa-save"></i>
+                </button>
+                <button class="btn btn-danger" onclick="deleteService()" style="width: 100%;">
+                    <span>حذف الخدمة</span>
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+            document.getElementById('editModal').dataset.editingCard = card.dataset.serviceId;
+        }
+
+        async function saveServiceEdit() {
+            const serviceId = document.getElementById('editModal').dataset.editingCard;
+            const card = document.querySelector(`[data-service-id="${serviceId}"]`);
+
+            const icon = document.getElementById('editServiceIcon').value;
+            const title = document.getElementById('editServiceTitle').value;
+            const desc = document.getElementById('editServiceDesc').value;
+
+            card.querySelector('.card-icon').className = `fas ${icon} card-icon`;
+            card.querySelector('.card-title').textContent = title;
+            card.querySelector('p').textContent = desc;
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم حفظ التعديلات للجميع!');
+        }
+
+        async function deleteService() {
+            if (!confirm('هل أنت متأكد من حذف هذه الخدمة؟')) return;
+
+            const serviceId = document.getElementById('editModal').dataset.editingCard;
+            const card = document.querySelector(`[data-service-id="${serviceId}"]`);
+            card.remove();
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم حذف الخدمة للجميع!');
+        }
+
+        function addNewService() {
+            document.getElementById('editModalTitle').textContent = 'إضافة خدمة جديدة';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">أيقونة الخدمة (Font Awesome)</label>
+                    <input type="text" id="newServiceIcon" class="form-input" placeholder="مثال: fa-laptop-code">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">عنوان الخدمة</label>
+                    <input type="text" id="newServiceTitle" class="form-input" placeholder="مثال: تطوير تطبيقات">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">وصف الخدمة</label>
+                    <textarea id="newServiceDesc" class="form-textarea" rows="4" placeholder="اكتب وصف الخدمة..."></textarea>
+                </div>
+                <button class="btn btn-success" onclick="saveNewService()" style="width: 100%;">
+                    <span>إضافة الخدمة</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function saveNewService() {
+            const icon = document.getElementById('newServiceIcon').value;
+            const title = document.getElementById('newServiceTitle').value;
+            const desc = document.getElementById('newServiceDesc').value;
+
+            if (!icon || !title || !desc) {
+                alert('الرجاء ملء جميع الحقول!');
+                return;
+            }
+
+            const grid = document.getElementById('servicesGrid');
+            const newId = Date.now();
+            const card = document.createElement('div');
+            card.className = 'card editable-section';
+            card.dataset.serviceId = newId;
+            card.innerHTML = `
+                <button class="edit-btn" onclick="editService(this)"><i class="fas fa-edit"></i></button>
+                <i class="fas ${icon} card-icon"></i>
+                <h3 class="card-title">${title}</h3>
+                <p>${desc}</p>
+            `;
+            grid.appendChild(card);
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم إضافة الخدمة للجميع!');
+        }
+
+        function editSkill(button) {
+            const skill = button.closest('.skill-item');
+            const icon = skill.querySelector('i').className;
+            const name = skill.querySelector('h3').textContent;
+
+            document.getElementById('editModalTitle').textContent = 'تعديل المهارة';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">أيقونة المهارة (Font Awesome)</label>
+                    <input type="text" id="editSkillIcon" class="form-input" value="${icon}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">اسم المهارة</label>
+                    <input type="text" id="editSkillName" class="form-input" value="${name}">
+                </div>
+                <button class="btn btn-success" onclick="saveSkillEdit()" style="width: 100%; margin-bottom: 1rem;">
+                    <span>حفظ التعديلات</span>
+                    <i class="fas fa-save"></i>
+                </button>
+                <button class="btn btn-danger" onclick="deleteSkill()" style="width: 100%;">
+                    <span>حذف المهارة</span>
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+            document.getElementById('editModal').dataset.editingSkill = skill.dataset.skillId;
+        }
+
+        async function saveSkillEdit() {
+            const skillId = document.getElementById('editModal').dataset.editingSkill;
+            const skill = document.querySelector(`[data-skill-id="${skillId}"]`);
+
+            const icon = document.getElementById('editSkillIcon').value;
+            const name = document.getElementById('editSkillName').value;
+
+            skill.querySelector('i').className = icon;
+            skill.querySelector('h3').textContent = name;
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم حفظ التعديلات للجميع!');
+        }
+
+        async function deleteSkill() {
+            if (!confirm('هل أنت متأكد من حذف هذه المهارة؟')) return;
+
+            const skillId = document.getElementById('editModal').dataset.editingSkill;
+            const skill = document.querySelector(`[data-skill-id="${skillId}"]`);
+            skill.remove();
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم حذف المهارة للجميع!');
+        }
+
+        function addNewSkill() {
+            document.getElementById('editModalTitle').textContent = 'إضافة مهارة جديدة';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">أيقونة المهارة (Font Awesome)</label>
+                    <input type="text" id="newSkillIcon" class="form-input" placeholder="مثال: fab fa-react">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">اسم المهارة</label>
+                    <input type="text" id="newSkillName" class="form-input" placeholder="مثال: Vue.js">
+                </div>
+                <button class="btn btn-success" onclick="saveNewSkill()" style="width: 100%;">
+                    <span>إضافة المهارة</span>
+                    <i class="fas fa-plus"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function saveNewSkill() {
+            const icon = document.getElementById('newSkillIcon').value;
+            const name = document.getElementById('newSkillName').value;
+
+            if (!icon || !name) {
+                alert('الرجاء ملء جميع الحقول!');
+                return;
+            }
+
+            const grid = document.getElementById('skillsGrid');
+            const newId = Date.now();
+            const skill = document.createElement('div');
+            skill.className = 'skill-item editable-section';
+            skill.dataset.skillId = newId;
+            skill.innerHTML = `
+                <button class="edit-btn" onclick="editSkill(this)"><i class="fas fa-edit"></i></button>
+                <i class="${icon}" style="font-size: 3.5rem; color: var(--accent-color);"></i>
+                <h3>${name}</h3>
+            `;
+            grid.appendChild(skill);
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم إضافة المهارة للجميع!');
+        }
+
+        function editAboutText() {
+            document.getElementById('editModalTitle').textContent = 'تعديل نص "عني"';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">النص (استخدم &lt;br&gt; للفواصل)</label>
+                    <textarea id="editAboutText" class="form-textarea" rows="8">${siteData.aboutText}</textarea>
+                </div>
+                <button class="btn btn-success" onclick="saveAboutText()" style="width: 100%;">
+                    <span>حفظ التعديلات</span>
+                    <i class="fas fa-save"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function saveAboutText() {
+            const text = document.getElementById('editAboutText').value;
+            siteData.aboutText = text;
+            document.getElementById('aboutText').innerHTML = text;
+            
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم حفظ التعديلات للجميع!');
+        }
+
+        function editPaymentImage() {
+            document.getElementById('editModalTitle').textContent = 'تغيير صورة وسائل الدفع';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">رابط الصورة الجديدة</label>
+                    <input type="url" id="editPaymentImage" class="form-input" value="${siteData.paymentImage}">
+                </div>
+                <button class="btn btn-success" onclick="savePaymentImage()" style="width: 100%;">
+                    <span>حفظ التعديلات</span>
+                    <i class="fas fa-save"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function savePaymentImage() {
+            const img = document.getElementById('editPaymentImage').value;
+            if (img) {
+                siteData.paymentImage = img;
+                document.getElementById('paymentImage').src = img;
+                
+                await saveDataToServer();
+                closeEditModal();
+                alert('✅ تم تغيير الصورة للجميع!');
+            }
+        }
+
+        function editWebhook() {
+            document.getElementById('editModalTitle').textContent = 'إعدادات النظام';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">رابط Backend API</label>
+                    <input type="url" class="form-input" value="${API_URL}" readonly>
+                    <small style="color: var(--text-muted); font-size: 0.9rem;">رابط الـ Backend الحالي</small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">رابط Webhook للديسكورد</label>
+                    <input type="url" id="editWebhook" class="form-input" value="${adminData.webhookUrl}">
+                </div>
+                <button class="btn btn-success" onclick="saveSystemSettings()" style="width: 100%; margin-bottom: 1rem;">
+                    <span>حفظ التعديلات</span>
+                    <i class="fas fa-save"></i>
+                </button>
+                <button class="btn" onclick="editColors()" style="width: 100%;">
+                    <span>تغيير ألوان الموقع</span>
+                    <i class="fas fa-palette"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function saveSystemSettings() {
+            const webhook = document.getElementById('editWebhook').value;
+            if (webhook) adminData.webhookUrl = webhook;
+
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم حفظ الإعدادات للجميع!');
+        }
+
+        function editColors() {
+            document.getElementById('editModalTitle').textContent = 'تغيير ألوان الموقع';
+            document.getElementById('editModalContent').innerHTML = `
+                <div class="color-picker-group">
+                    <div class="form-group">
+                        <label class="form-label">اللون الأساسي</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="colorPrimary" value="${siteData.colors.primary}">
+                            <input type="text" class="form-input" value="${siteData.colors.primary}" readonly style="flex: 1;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">لون التمييز</label>
+                        <div class="color-input-wrapper">
+                            <input type="color" id="colorAccent" value="${siteData.colors.accent}">
+                            <input type="text" class="form-input" value="${siteData.colors.accent}" readonly style="flex: 1;">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="saveColors()" style="width: 100%; margin-bottom: 1rem;">
+                    <span>حفظ الألوان</span>
+                    <i class="fas fa-save"></i>
+                </button>
+                <button class="btn btn-warning" onclick="resetColors()" style="width: 100%;">
+                    <span>استعادة الألوان الأصلية</span>
+                    <i class="fas fa-undo"></i>
+                </button>
+            `;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        async function saveColors() {
+            const colors = {
+                primary: document.getElementById('colorPrimary').value,
+                secondary: siteData.colors.secondary,
+                accent: document.getElementById('colorAccent').value,
+                bgDark: siteData.colors.bgDark,
+                bgCard: siteData.colors.bgCard,
+                textLight: siteData.colors.textLight,
+                textMuted: siteData.colors.textMuted
+            };
+
+            siteData.colors = colors;
+            applyColors(colors);
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم تغيير الألوان للجميع!');
+        }
+
+        async function resetColors() {
+            if (!confirm('هل تريد استعادة الألوان الأصلية؟')) return;
+            
+            const defaultColors = {
+                primary: '#4a1a7e',
+                secondary: '#2d1150',
+                accent: '#6b3fa0',
+                bgDark: '#0d0618',
+                bgCard: 'rgba(29, 14, 50, 0.95)',
+                textLight: '#e8dff5',
+                textMuted: '#b8a9d1'
+            };
+
+            siteData.colors = defaultColors;
+            applyColors(defaultColors);
+            await saveDataToServer();
+            closeEditModal();
+            alert('✅ تم استعادة الألوان الأصلية للجميع!');
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const userName = document.getElementById('userName').value;
+            const userDiscord = document.getElementById('userDiscord').value;
+            const userRequest = document.getElementById('userRequest').value;
+            
+            const embed = {
+                embeds: [{
+                    title: '💼 طلب برمجة جديد',
+                    color: 4915326,
+                    fields: [
+                        { name: '👤 الاسم', value: userName, inline: false },
+                        { name: '💬 Discord ID', value: `<@${userDiscord}>`, inline: false },
+                        { name: '📝 الطلب', value: userRequest, inline: false }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: 'نظام الطلبات' }
+                }]
+            };
+            
+            alert('✅ تم إرسال طلبك بنجاح!\nراح نرد عليك قريب إن شاء الله');
+            event.target.reset();
+            
+            fetch(adminData.webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(embed)
+            }).catch(err => console.error('Error:', err));
+        }
+
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            const secretInput = document.getElementById('secretCodeInput');
+            
+            if (window.innerWidth <= 1024 && 
+                sidebar.classList.contains('open') && 
+                !sidebar.contains(e.target) && 
+                !menuBtn.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+
+            if (secretInput.classList.contains('active') && 
+                !secretInput.contains(e.target) && 
+                !e.target.classList.contains('admin-login-btn')) {
+                secretInput.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
